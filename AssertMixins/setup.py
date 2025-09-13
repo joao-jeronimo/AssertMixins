@@ -5,9 +5,8 @@ from os.path import join, dirname
 
 setup(
     packages=[
-        'odoo_log_parser',
+        'assert_mixins',
         ],
     scripts=[
-        'Odoo-LogParser.py',
         ],
     )
