@@ -10,6 +10,12 @@ case $1 in
     popd
     ;;
     
+  install_program)
+    pushd AssertMixins/
+    pip install -e .
+    popd
+    ;;
+    
   test_unit)
     pushd AssertMixins/
     pytest --timeout=$SENSIBLE_TIMEOUT

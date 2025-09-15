@@ -1,0 +1,16 @@
+name: Testing, DEBianizing and Releasing
+
+on: push
+
+jobs:
+    Pytesting:
+        runs-on: ubuntu-latest
+        timeout-minutes: 5
+        steps:
+        - uses: actions/checkout@v4
+        - name: Development and test dependencies
+          run: ./Routines.bash deps_devel
+        - name: Installation
+          run: ./Routines.bash install_program
+        - name: Pytesting - Unit
+          run: ./Routines.bash test_unit
