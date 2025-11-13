@@ -33,6 +33,13 @@ case $1 in
     # Always return to oeiginal directory:
     popd
     ;;
+  
+  reinvent_wheel)
+    python -m pip install --upgrade build
+    pushd AssertMixins/
+    python3 -m build
+    popd
+    ;;
 	
   *)
     echo "Unknown routine name: $1"

@@ -14,3 +14,5 @@ jobs:
           run: ./Routines.bash install_program
         - name: Pytesting - Unit
           run: ./Routines.bash test_unit
+        - name: Packaging - Reinventing the wheel
+          run: ./Routines.bash reinvent_wheel
