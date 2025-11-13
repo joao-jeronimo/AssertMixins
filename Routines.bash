@@ -41,8 +41,8 @@ case $1 in
     popd
     ;;
   publish_wheel)
-    pushd AssertMixins/
     python3 -m pip install --upgrade twine
+    pushd AssertMixins/
     python3 -m twine upload --repository pypi dist/*
     popd
     ;;
