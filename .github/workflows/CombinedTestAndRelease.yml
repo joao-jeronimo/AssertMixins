@@ -22,7 +22,7 @@ jobs:
           run: |
             echo "[pypi]"                                   >  ~/.pypirc
             echo "username = __token__"                     >> ~/.pypirc
-            echo "password = ${{ secrets.PYPI_TOKEN }}      >> ~/.pypirc
+            echo "password = ${{ secrets.PYPI_TOKEN }}"     >> ~/.pypirc
         - name: Release - On PyPI - Publish
           if: "github.ref_type == 'tag' && startsWith(github.ref, 'refs/tags/v')"
           run: |
