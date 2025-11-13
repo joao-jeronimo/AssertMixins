@@ -13,12 +13,19 @@ class TestElementaryMixin(unittest.TestCase):
         """
         ### Empty collection:
         self.elementary.assertLength([], 0)
-        with self.assertRaisesRegex(AssertionError, "Collection length is not 1: []"):
+        with self.assertRaisesRegex(AssertionError, r"Collection length is not 1: \[\]"):
             self.elementary.assertLength([], 1)
         ### Two-element collection:
         self.elementary.assertLength([4, 6], 2)
-        with self.assertRaisesRegex(AssertionError, "Collection length is not 0: [4, 6]"):
+        with self.assertRaisesRegex(AssertionError, r"Collection length is not 0: \[4, 6\]"):
             self.elementary.assertLength([4, 6], 0)
+    
+    def test_assertLength_honors_msg(self):
+        """
+        Method assertLength() should honor msg arg when providaded.
+        """
+        with self.assertRaisesRegex(AssertionError, r"my msg"):
+            self.elementary.assertLength([4, 6], 0, msg="my msg")
     
     ############################################################
     ############################################################
