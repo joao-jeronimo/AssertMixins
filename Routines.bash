@@ -35,9 +35,15 @@ case $1 in
     ;;
   
   reinvent_wheel)
-    python -m pip install --upgrade build
+    python3 -m pip install --upgrade build
     pushd AssertMixins/
     python3 -m build
+    popd
+    ;;
+  publish_wheel)
+    pushd AssertMixins/
+    python3 -m pip install --upgrade twine
+    python3 -m twine upload --repository pypi dist/*
     popd
     ;;
 	
