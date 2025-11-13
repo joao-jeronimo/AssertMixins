@@ -1,6 +1,7 @@
 # A library of mixin classes containing assertion methods
 
 Example of use:
+
     # -*- coding: utf-8 -*-
     import unittest, assert_mixins
     
