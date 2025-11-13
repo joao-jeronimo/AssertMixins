@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-import unittest
+import unittest, assert_mixins
 from unittest.mock import Mock, MagicMock
 
 class TestElementaryMixin(unittest.TestCase):
@@ -7,10 +7,11 @@ class TestElementaryMixin(unittest.TestCase):
     Test behaviour of class ElementaryMixin.
     """
     
-    def test_skel(self):
+    def test_assertLength(self):
         """
-        Verified correct creation of testing data.
+        Method assertLength() should assert the length of built-in non-lazy collections.
         """
+        
         self.assertTrue(True)
     
     ############################################################
@@ -18,4 +19,4 @@ class TestElementaryMixin(unittest.TestCase):
     ############################################################
     @classmethod
     def setUpClass(self):
-        pass
+        self.elementary = assert_mixins.ElementaryMixin()
