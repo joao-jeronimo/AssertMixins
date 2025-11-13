@@ -12,24 +12,28 @@ class TestElementaryMixin(unittest.TestCase):
         Method assertLength() should assert the length of built-in non-lazy collections.
         """
         ### Empty collection:
-        self.elementary.assertLength([], 0)
+        self.elementaryTc.assertLength([], 0)
         with self.assertRaisesRegex(AssertionError, r"Collection length is not 1: \[\]"):
-            self.elementary.assertLength([], 1)
+            self.elementaryTc.assertLength([], 1)
         ### Two-element collection:
-        self.elementary.assertLength([4, 6], 2)
+        self.elementaryTc.assertLength([4, 6], 2)
         with self.assertRaisesRegex(AssertionError, r"Collection length is not 0: \[4, 6\]"):
-            self.elementary.assertLength([4, 6], 0)
+            self.elementaryTc.assertLength([4, 6], 0)
     
     def test_assertLength_honors_msg(self):
         """
         Method assertLength() should honor msg arg when providaded.
         """
         with self.assertRaisesRegex(AssertionError, r"my msg"):
-            self.elementary.assertLength([4, 6], 0, msg="my msg")
+            self.elementaryTc.assertLength([4, 6], 0, msg="my msg")
     
     ############################################################
     ############################################################
     ############################################################
     @classmethod
     def setUpClass(self):
-        self.elementary = assert_mixins.ElementaryMixin()
+        ElementaryTestCase = type("ElementaryTestCase", (
+            unittest.TestCase,
+            assert_mixins.ElementaryMixin,
+            ), {})
+        self.elementaryTc = ElementaryTestCase()
