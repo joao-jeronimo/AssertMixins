@@ -16,3 +16,10 @@ jobs:
           run: ./Routines.bash test_unit
         - name: Packaging - Reinventing the wheel
           run: ./Routines.bash reinvent_wheel
+        - name: Release - On GitHub
+          id: create_release
+          uses: softprops/action-gh-release@v2
+          if: "github.ref_type == 'tag' && startsWith(github.ref, 'refs/tags/v')"
+          with:
+            files: |
+              ./AssertMixins/dist/*.whl
