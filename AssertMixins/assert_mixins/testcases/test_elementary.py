@@ -11,8 +11,14 @@ class TestElementaryMixin(unittest.TestCase):
         """
         Method assertLength() should assert the length of built-in non-lazy collections.
         """
-        
-        self.assertTrue(True)
+        ### Empty collection:
+        self.elementary.assertLength([], 0)
+        with self.assertRaisesRegex(AssertionError, "Collection length is not 1: []"):
+            self.elementary.assertLength([], 1)
+        ### Two-element collection:
+        self.elementary.assertLength([4, 6], 2)
+        with self.assertRaisesRegex(AssertionError, "Collection length is not 0: [4, 6]"):
+            self.elementary.assertLength([4, 6], 0)
     
     ############################################################
     ############################################################
