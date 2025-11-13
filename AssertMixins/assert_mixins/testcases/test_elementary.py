@@ -39,10 +39,10 @@ class TestElementaryMixin(unittest.TestCase):
         """
         Method assertPosixFailure() must fail if and only if provided with a zero.
         """
-        with self.assertRaises(AssertionError): self.elementaryTc.assertPosixSuccess(0)
-        self.elementaryTc.assertPosixSuccess(1)
-        self.elementaryTc.assertPosixSuccess(-1)
-        self.elementaryTc.assertPosixSuccess(2)
+        with self.assertRaises(AssertionError): self.elementaryTc.assertPosixFailure(0)
+        self.elementaryTc.assertPosixFailure(1)
+        self.elementaryTc.assertPosixFailure(-1)
+        self.elementaryTc.assertPosixFailure(2)
     
     ############################################################
     ############################################################
