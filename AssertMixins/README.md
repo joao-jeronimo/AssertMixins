@@ -6,4 +6,4 @@ Example of use:
     
     class SampleTestCase(unittest.TestCase, assert_mixins.ElementaryMixin):
         def test_thing_has_length_two(self):
-            self.assertLength([3, 4], 2, msg="Length is differente from two!")
+            self.assertLength([3, 4], 2, msg="Length is different from two!")
