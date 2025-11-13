@@ -27,6 +27,23 @@ class TestElementaryMixin(unittest.TestCase):
         with self.assertRaisesRegex(AssertionError, r"my msg"):
             self.elementaryTc.assertLength([4, 6], 0, msg="my msg")
     
+    def test_assertPosixSuccess(self):
+        """
+        Method assertPosixSuccess() must fail if and only if provided with a non-zero.
+        """
+        self.elementaryTc.assertPosixSuccess(0)
+        with self.assertRaises(AssertionError): self.elementaryTc.assertPosixSuccess(1)
+        with self.assertRaises(AssertionError): self.elementaryTc.assertPosixSuccess(-1)
+        with self.assertRaises(AssertionError): self.elementaryTc.assertPosixSuccess(2)
+    def test_assertPosixFailure(self):
+        """
+        Method assertPosixFailure() must fail if and only if provided with a zero.
+        """
+        with self.assertRaises(AssertionError): self.elementaryTc.assertPosixSuccess(0)
+        self.elementaryTc.assertPosixSuccess(1)
+        self.elementaryTc.assertPosixSuccess(-1)
+        self.elementaryTc.assertPosixSuccess(2)
+    
     ############################################################
     ############################################################
     ############################################################
