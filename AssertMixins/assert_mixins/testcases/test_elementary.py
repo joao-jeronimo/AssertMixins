@@ -20,6 +20,16 @@ class TestElementaryMixin(unittest.TestCase):
         with self.assertRaisesRegex(AssertionError, r"Collection length is not 0: \[4, 6\]"):
             self.elementaryTc.assertLength([4, 6], 0)
     
+    def test_assertEmpty(self):
+        """
+        Method assertEmpty() should assert that a collection is empty for non-lazy collections.
+        """
+        self.elementaryTc.assertEmpty([])
+        with self.assertRaisesRegex(AssertionError, r"Collection is not empty: \[4\]"):
+            self.elementaryTc.assertEmpty([4])
+        with self.assertRaisesRegex(AssertionError, r"Collection is not empty: \[4, 6\]"):
+            self.elementaryTc.assertEmpty([4, 6])
+    
     def test_assertLength_honors_msg(self):
         """
         Method assertLength() should honor msg arg when providaded.
