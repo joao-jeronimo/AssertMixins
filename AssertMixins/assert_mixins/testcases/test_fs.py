@@ -7,6 +7,21 @@ class TestFsMixin(unittest.TestCase):
     Test behaviour of class FsMixin.
     """
     
+    def test_assertLooksLikePath(self):
+        """
+        Method assertLooksLikePath() must fail if it's argument does not look like a path.
+        For now being a path means the same as being a string.
+        """
+        with self.assertRaisesRegex(AssertionError, r"Value «0» does not look like a path"):
+            self.fsTc.assertLooksLikePath(0)
+        with self.assertRaisesRegex(AttributeError, r"Function invented_funk_name\(\) was called with the non-string «7»"):
+            self.fsTc.assertLooksLikePath(7, iserr=(AttributeError, "invented_funk_name"))
+        self.fsTc.assertLooksLikePath("/tmp/unit_testing_assert_mixins/TestFsMixin/non_existing_entry")
+        self.fsTc.assertLooksLikePath("/tmp/unit_testing_assert_mixins/TestFsMixin/sample_empty_folder")
+        self.fsTc.assertLooksLikePath("/tmp/unit_testing_assert_mixins/TestFsMixin/sample_thingy_folder")
+        self.fsTc.assertLooksLikePath("/tmp/unit_testing_assert_mixins/TestFsMixin/sample_thingy_folder/thing")
+        self.fsTc.assertLooksLikePath("The quick brown fox jumps over the lazy dog")
+    
     def test_assertPathExists(self):
         """
         Method assertPathExists() must fail if and only if the provided path does not exist.

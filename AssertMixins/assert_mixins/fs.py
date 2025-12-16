@@ -6,6 +6,17 @@ class FsMixin:
     Filesystem-related assertions.
     """
     
+    def assertLooksLikePath(self, path, iserr=None):
+        """
+        Asserts() that a given value represents something that looks like a path.
+        """
+        if isinstance(path, str):
+            return
+        if iserr:
+            raise iserr[0](f"Function {iserr[1]}() was called with the non-string «{repr(path)}».")
+        else:
+            raise AssertionError(f"Value «{repr(path)}» does not look like a path.")
+    
     def assertPathExists(self, path, msg=None):
         """
         Asserts() that a given value represents the path of an existing directory entry.
