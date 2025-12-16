@@ -1,0 +1,43 @@
+# -*- coding: utf-8 -*-
+import unittest, assert_mixins, shutil, os
+from unittest.mock import Mock, MagicMock
+
+class TestFsMixin(unittest.TestCase):
+    """
+    Test behaviour of class FsMixin.
+    """
+    
+    def test_assertIsFile(self):
+        """
+        Method assertIsFile() must fail if and only if the provided path does not represent a regular file.
+        """
+        with self.assertRaisesRegex(ValueError, "Function assertIsFile\(\) was called with the non-string «0»"):
+            self.fsTc.assertIsFile(0)
+        with self.assertRaisesRegex(AssertionError, "False is not true : Path «/tmp/unit_testing_assert_mixins/TestFsMixin/non_existing_entry» does not even exist"):
+            self.fsTc.assertIsFile("/tmp/unit_testing_assert_mixins/TestFsMixin/non_existing_entry")
+        with self.assertRaisesRegex(AssertionError, "False is not true : Path «/tmp/unit_testing_assert_mixins/TestFsMixin/sample_empty_folder» is not a regular file"):
+            self.fsTc.assertIsFile("/tmp/unit_testing_assert_mixins/TestFsMixin/sample_empty_folder")
+        with self.assertRaisesRegex(AssertionError, "False is not true : Path «/tmp/unit_testing_assert_mixins/TestFsMixin/sample_thingy_folder» is not a regular file"):
+            self.fsTc.assertIsFile("/tmp/unit_testing_assert_mixins/TestFsMixin/sample_thingy_folder")
+        self.fsTc.assertIsFile("/tmp/unit_testing_assert_mixins/TestFsMixin/sample_thingy_folder/thing")
+    
+    ############################################################
+    ############################################################
+    ############################################################
+    @classmethod
+    def setUpClass(self):
+        FsTestCase = type("FsTestCase", (
+            unittest.TestCase,
+            assert_mixins.FsMixin,
+            ), {})
+        self.fsTc = FsTestCase()
+        ### Create some files and folders for testing:
+        # The shell:
+        if os.path.exists("/tmp/unit_testing_assert_mixins/TestFsMixin"):
+            shutil.rmtree("/tmp/unit_testing_assert_mixins/TestFsMixin", ignore_errors=False, onerror=None)
+        os.makedirs("/tmp/unit_testing_assert_mixins/TestFsMixin", exist_ok=True)
+        # The contents:
+        os.makedirs("/tmp/unit_testing_assert_mixins/TestFsMixin/sample_empty_folder", exist_ok=True)
+        os.makedirs("/tmp/unit_testing_assert_mixins/TestFsMixin/sample_thingy_folder", exist_ok=True)
+        with open("/tmp/unit_testing_assert_mixins/TestFsMixin/sample_thingy_folder/thing", "w") as conts:
+            conts.write("papapa")

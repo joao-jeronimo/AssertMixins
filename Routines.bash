@@ -1,9 +1,10 @@
 #!/usr/bin/env bash
 set -e -x
+rotname=$1
 
 SENSIBLE_TIMEOUT=$((5*60))
 
-case $1 in
+case $rotname in
   deps_devel)
     pushd AssertMixins/
     python3 -m pip install --upgrade -r requirements.txt
@@ -48,7 +49,10 @@ case $1 in
     ;;
 	
   *)
-    echo "Unknown routine name: $1"
+    set +x
+    echo Unknown routine name $rotname...
+    echo Valid routine names would be:
+    sed -n -e '/^case \$rotname in$/,/^esac$/p' $0 | grep -o '^ *[^*)]\+)$' | grep -o '[^*) ][^*)]*' | sed -e 's/^/ - /'
     exit -1
     ;;
 esac
