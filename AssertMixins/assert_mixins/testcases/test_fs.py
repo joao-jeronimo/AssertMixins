@@ -11,15 +11,28 @@ class TestFsMixin(unittest.TestCase):
         """
         Method assertIsFile() must fail if and only if the provided path does not represent a regular file.
         """
-        with self.assertRaisesRegex(ValueError, "Function assertIsFile\(\) was called with the non-string «0»"):
+        with self.assertRaisesRegex(ValueError, r"Function assertIsFile\(\) was called with the non-string «0»"):
             self.fsTc.assertIsFile(0)
-        with self.assertRaisesRegex(AssertionError, "False is not true : Path «/tmp/unit_testing_assert_mixins/TestFsMixin/non_existing_entry» does not even exist"):
+        with self.assertRaisesRegex(AssertionError, r"False is not true : Path «/tmp/unit_testing_assert_mixins/TestFsMixin/non_existing_entry» does not even exist"):
             self.fsTc.assertIsFile("/tmp/unit_testing_assert_mixins/TestFsMixin/non_existing_entry")
-        with self.assertRaisesRegex(AssertionError, "False is not true : Path «/tmp/unit_testing_assert_mixins/TestFsMixin/sample_empty_folder» is not a regular file"):
+        with self.assertRaisesRegex(AssertionError, r"False is not true : Path «/tmp/unit_testing_assert_mixins/TestFsMixin/sample_empty_folder» is not a regular file"):
             self.fsTc.assertIsFile("/tmp/unit_testing_assert_mixins/TestFsMixin/sample_empty_folder")
-        with self.assertRaisesRegex(AssertionError, "False is not true : Path «/tmp/unit_testing_assert_mixins/TestFsMixin/sample_thingy_folder» is not a regular file"):
+        with self.assertRaisesRegex(AssertionError, r"False is not true : Path «/tmp/unit_testing_assert_mixins/TestFsMixin/sample_thingy_folder» is not a regular file"):
             self.fsTc.assertIsFile("/tmp/unit_testing_assert_mixins/TestFsMixin/sample_thingy_folder")
         self.fsTc.assertIsFile("/tmp/unit_testing_assert_mixins/TestFsMixin/sample_thingy_folder/thing")
+    
+    def test_assertIsDirectory(self):
+        """
+        Method assertIsDirectory() must fail if and only if the provided path does not represent a directory.
+        """
+        with self.assertRaisesRegex(ValueError, r"Function assertIsDirectory\(\) was called with the non-string «0»"):
+            self.fsTc.assertIsDirectory(0)
+        with self.assertRaisesRegex(AssertionError, r"False is not true : Path «/tmp/unit_testing_assert_mixins/TestFsMixin/non_existing_entry» does not even exist"):
+            self.fsTc.assertIsFile("/tmp/unit_testing_assert_mixins/TestFsMixin/non_existing_entry")
+        with self.assertRaisesRegex(AssertionError, r"False is not true : Path «/tmp/unit_testing_assert_mixins/TestFsMixin/sample_thingy_folder/thing» is not a directory"):
+            self.fsTc.assertIsDirectory("/tmp/unit_testing_assert_mixins/TestFsMixin/sample_thingy_folder/thing")
+        self.fsTc.assertIsDirectory("/tmp/unit_testing_assert_mixins/TestFsMixin/sample_empty_folder")
+        self.fsTc.assertIsDirectory("/tmp/unit_testing_assert_mixins/TestFsMixin/sample_thingy_folder")
     
     ############################################################
     ############################################################
