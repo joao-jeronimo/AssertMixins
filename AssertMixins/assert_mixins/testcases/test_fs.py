@@ -7,6 +7,31 @@ class TestFsMixin(unittest.TestCase):
     Test behaviour of class FsMixin.
     """
     
+    def test_assertPathExists(self):
+        """
+        Method assertPathExists() must fail if and only if the provided path does not exist.
+        """
+        with self.assertRaisesRegex(ValueError, r"Function assertPathExists\(\) was called with the non-string «0»"):
+            self.fsTc.assertPathExists(0)
+        with self.assertRaisesRegex(AssertionError, r"False is not true : Path «/tmp/unit_testing_assert_mixins/TestFsMixin/non_existing_entry» does not exist"):
+            self.fsTc.assertPathExists("/tmp/unit_testing_assert_mixins/TestFsMixin/non_existing_entry")
+        self.fsTc.assertPathExists("/tmp/unit_testing_assert_mixins/TestFsMixin/sample_empty_folder")
+        self.fsTc.assertPathExists("/tmp/unit_testing_assert_mixins/TestFsMixin/sample_thingy_folder")
+        self.fsTc.assertPathExists("/tmp/unit_testing_assert_mixins/TestFsMixin/sample_thingy_folder/thing")
+    def test_assertPathNotExists(self):
+        """
+        Method assertPathNotExists() must fail if and only if the provided path is a string and exists.
+        """
+        with self.assertRaisesRegex(ValueError, r"Function assertPathNotExists\(\) was called with the non-string «0»"):
+            self.fsTc.assertPathNotExists(0)
+        with self.assertRaisesRegex(AssertionError, r"True is not false : Path «/tmp/unit_testing_assert_mixins/TestFsMixin/sample_empty_folder» exist"):
+            self.fsTc.assertPathNotExists("/tmp/unit_testing_assert_mixins/TestFsMixin/sample_empty_folder")
+        with self.assertRaisesRegex(AssertionError, r"True is not false : Path «/tmp/unit_testing_assert_mixins/TestFsMixin/sample_thingy_folder» exist"):
+            self.fsTc.assertPathNotExists("/tmp/unit_testing_assert_mixins/TestFsMixin/sample_thingy_folder")
+        with self.assertRaisesRegex(AssertionError, r"True is not false : Path «/tmp/unit_testing_assert_mixins/TestFsMixin/sample_thingy_folder/thing» exist"):
+            self.fsTc.assertPathNotExists("/tmp/unit_testing_assert_mixins/TestFsMixin/sample_thingy_folder/thing")
+        self.fsTc.assertPathNotExists("/tmp/unit_testing_assert_mixins/TestFsMixin/non_existing_entry")
+    
     def test_assertIsFile(self):
         """
         Method assertIsFile() must fail if and only if the provided path does not represent a regular file.

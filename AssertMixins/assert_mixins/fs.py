@@ -6,6 +6,22 @@ class FsMixin:
     Filesystem-related assertions.
     """
     
+    def assertPathExists(self, path, msg=None):
+        """
+        Asserts() that a given value represents the path of an existing directory entry.
+        """
+        if not isinstance(path, str):
+            raise ValueError(f"Function assertPathExists() was called with the non-string «{repr(path)}».")
+        self.assertTrue(os.path.exists(path), msg=msg or f"Path «{path}» does not exist.")
+    
+    def assertPathNotExists(self, path, msg=None):
+        """
+        Asserts() that a given value represents the path of a non-existing directory entry.
+        """
+        if not isinstance(path, str):
+            raise ValueError(f"Function assertPathNotExists() was called with the non-string «{repr(path)}».")
+        self.assertFalse(os.path.exists(path), msg=msg or f"Path «{path}» exists.")
+    
     def assertIsFile(self, path, msg=None):
         """
         Asserts() that a given value represents the path of a regular file.
