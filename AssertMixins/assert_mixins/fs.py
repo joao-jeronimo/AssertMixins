@@ -8,7 +8,7 @@ class FsMixin:
     
     def assertLooksLikePath(self, path, iserr=None):
         """
-        Asserts() that a given value represents something that looks like a path.
+        Asserts that a given value represents something that looks like a path.
         """
         if isinstance(path, str):
             return
@@ -19,21 +19,21 @@ class FsMixin:
     
     def assertPathExists(self, path, msg=None):
         """
-        Asserts() that a given value represents the path of an existing directory entry.
+        Asserts that a given value represents the path of an existing directory entry.
         """
         self.assertLooksLikePath(path, iserr=(ValueError, "assertPathExists"))
         self.assertTrue(os.path.exists(path), msg=msg or f"Path «{path}» does not exist.")
     
     def assertPathNotExists(self, path, msg=None):
         """
-        Asserts() that a given value represents the path of a non-existing directory entry.
+        Asserts that a given value represents the path of a non-existing directory entry.
         """
         self.assertLooksLikePath(path, iserr=(ValueError, "assertPathNotExists"))
         self.assertFalse(os.path.exists(path), msg=msg or f"Path «{path}» exists.")
     
     def assertIsFile(self, path, msg=None):
         """
-        Asserts() that a given value represents the path of a regular file.
+        Asserts that a given value represents the path of a regular file.
         """
         self.assertLooksLikePath(path, iserr=(ValueError, "assertIsFile"))
         self.assertTrue(os.path.exists(path), msg=msg or f"Path «{path}» does not even exist.")
@@ -41,7 +41,7 @@ class FsMixin:
     
     def assertIsDirectory(self, path, msg=None):
         """
-        Asserts() that a given value represents the path of a directory.
+        Asserts that a given value represents the path of a directory.
         """
         self.assertLooksLikePath(path, iserr=(ValueError, "assertIsDirectory"))
         self.assertTrue(os.path.exists(path), msg=msg or f"Path «{path}» does not even exist.")

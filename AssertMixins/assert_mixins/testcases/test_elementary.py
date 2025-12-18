@@ -22,7 +22,7 @@ class TestElementaryMixin(unittest.TestCase):
     
     def test_assertEmpty(self):
         """
-        Method assertEmpty() should assert that a collection is empty for non-lazy collections.
+        Method assertEmpty() should assert that a collection is empty (for non-generators).
         """
         self.elementaryTc.assertEmpty([])
         with self.assertRaisesRegex(AssertionError, r"Collection is not empty: \[4\]"):
@@ -36,6 +36,16 @@ class TestElementaryMixin(unittest.TestCase):
         """
         with self.assertRaisesRegex(AssertionError, r"my msg"):
             self.elementaryTc.assertLength([4, 6], 0, msg="my msg")
+    
+    def test_assertSingleton(self):
+        """
+        Method assertSingleton() should assert that a collection has a single element (for non-generators).
+        """
+        with self.assertRaisesRegex(AssertionError, r"Collection is not a singleton: \[\]"):
+            self.elementaryTc.assertSingleton([])
+        self.elementaryTc.assertSingleton([4])
+        with self.assertRaisesRegex(AssertionError, r"Collection is not a singleton: \[4, 6\]"):
+            self.elementaryTc.assertSingleton([4, 6])
     
     ############################################################
     ############################################################
